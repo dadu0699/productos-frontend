@@ -1,0 +1,33 @@
+<h2>{{titulo}}</h2>
+<hr>
+<div *ngIf="productos; then cards else loading"></div>
+<ng-template #cards>
+  <div class="card-columns">
+    <div class="card" *ngFor="let producto of productos">
+      <div *ngIf="producto.imagen && producto.imagen !== 'null'; then image else imageDefault"></div>
+      <ng-template #image>
+        <img class="card-img-top img-fluid" style="max-height: 250px;" src="http://localhost:8082/productos-backend/uploads/{{producto.imagen}}"
+          alt="{{producto.nombre}}">
+      </ng-template>
+      <ng-template #imageDefault>
+        <img class="card-img-top" style="max-height: 250px;" src="assets/images/image.svg" alt="Card image cap">
+      </ng-template>
+      <div class="card-body">
+        <h4 class="card-title">{{producto.nombre}}</h4>
+        <p class="card-text">Q{{producto.precio}}</p>
+      </div>
+      <div class="card-footer">
+        <div class="btn-group btn-group-sm" role="group">
+          <a type="button" class="btn btn-primary" [routerLink]="['/producto', producto.id]">Ver</a>
+          <a type="button" class="btn btn-warning" [routerLink]="['/editar-producto', producto.id]">Editar</a>
+          <a type="button" class="btn btn-danger" (click)="onDeleteProducto(producto.id)" style="cursor: pointer;">Eliminar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #loading>
+  <div align='center'>
+    <img src="assets/images/loading.gif">
+  </div>
+</ng-template>

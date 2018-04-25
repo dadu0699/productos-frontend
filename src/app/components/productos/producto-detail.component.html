@@ -1,0 +1,29 @@
+<h2>Producto</h2>
+<hr>
+<div *ngIf="producto; then cards else loading"></div>
+<ng-template #cards>
+  <div class="card">
+    <div class="container-fliud">
+      <div class="wrapper row">
+        <div *ngIf="producto.imagen && producto.imagen !== 'null'; then image else imageDefault"></div>
+        <ng-template #image>
+          <img class="col-md-6 img-fluid" style="max-height: 250px;" src="http://localhost:8082/productos-backend/uploads/{{producto.imagen}}"
+            alt="{{producto.nombre}}">
+        </ng-template>
+        <ng-template #imageDefault>
+          <img class="col-md-6 img-fluid" style="max-height: 250px;" src="assets/images/image.svg" alt="Card image cap">
+        </ng-template>
+        <div class="col-md-6">
+          <h2>{{producto.nombre}}</h2>
+          <p>Precio: Q{{producto.precio}}</p>
+          <p>Descripcion: {{producto.descripcion}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #loading>
+  <div align='center'>
+    <img src="assets/images/loading.gif">
+  </div>
+</ng-template>
